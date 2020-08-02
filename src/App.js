@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useEffect } from 'react';
+// import AddRefill from './components/add_refill';
+import Router from './Router';
+// import Register from './components/register'
+// import LoggedIn from './components/LoggedIn';
+// Redux
+import Alert from './components/layout/alert';
+
+import { Provider } from 'react-redux';
+import store from './store';
+import { loadUser } from './actions/auth'
+import setAuthToken from './utils/setAuthToken'
+
+if(localStorage.token) {
+  setAuthToken(localStorage.token)
+}
+
 
 function App() {
+  useEffect(() => {
+    store.dispatch(loadUser())
+  }, [])
+
   return (
+    <Provider store={store}>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router />
     </div>
+    </Provider>
+
   );
-}
+} 
 
 export default App;

@@ -17,6 +17,8 @@ import RecipesList from './components/recipes_list';
 import AddRecipe from './components/add_recipe';
 import Login from './components/Login';
 import Register from './components/Register';
+import Recipe from './components/Recipe';
+import SumIngredients from './components/sum_ingredients';
 // Write component imports here //
 
 
@@ -33,7 +35,9 @@ function Router (){
                 <Route exact path="/recipes_list" component = {RecipesList} />   
                 <Route exact path="/add_recipe" component = {AddRecipe} /> 
                 <Route exact path="/login" component = {Login} />  
-                <Route exact path="/register" component = {Register} />         
+                <Route exact path="/register" component = {Register} /> 
+                <Route path="/recipe/:id" component = {Recipe} />    
+                <Route path="/sum" component = {SumIngredients} />       
         </Switch>
         </BrowserRouter>
 

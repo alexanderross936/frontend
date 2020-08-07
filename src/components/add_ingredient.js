@@ -10,8 +10,8 @@ class AddIngredient extends React.Component {
 
     state = {
         ingredient: '',
-        unit: '',
-        measure: ''
+        type: '',
+        amount: ''
     }
 
     handleChangeIngredient = (event) => {
@@ -21,53 +21,67 @@ class AddIngredient extends React.Component {
         console.log(this.state.ingredient)
     }
 
-    handleChangeUnit = (event) => {
+    handleChangeAmount = (event) => {
         this.setState({
-            unit: event.target.value
+            amount: event.target.value
         })
-        console.log(this.state.unit)
+        console.log(this.state.amount)
     }
 
-    handleChangeMeasure = (event) => {
+    handleChangeType = (event) => {
         this.setState({
-            measure: event.target.value
+            type: event.target.value
         })
-        console.log(this.state.measure)
+        console.log(this.state.type)
     }
 
     handleSubmit = (event) => {
         event.preventDefault()
-        let post = {
-            Unit: this.state.unit,
-            Ingredient: this.state.ingredient,
-            Measure: this.state.measure
+        let ingredient = {
+            ingredient: this.state.ingredient,
+            type: this.state.type,
+            amount: this.state.amount
         }
 
-        axios.post('http://localhost:4000/add_ingredient', post)
+        axios.post('http://localhost:4000/add_ingredient', ingredient)
         this.setState({
             ingredient: '',
-            unit: '',
-            measure: ''
+            type: '',
+            amount: ''
         })
 
     }
 
     render() {
         return (
-            <div>
-                            <form 
-                            // method="POST" action='http://localhost:4000/add_ingredient' 
+            <div style={{margin: '90px' }}>
+                            <form
+                            // method="POST" action='http://localhost:4000/add_recipe' 
                             onSubmit={this.handleSubmit}
                             >
+                                <h3>Ingredient</h3>
             <input id="ingredient" name="ingredient" type="text" value={this.state.ingredient} onChange={this.handleChangeIngredient} />
             <br></br>
-            <input id="unit" name="unit" type="text" value={this.state.unit} onChange={this.handleChangeUnit} />
+            <h3>Amount</h3>
+            <input id="amount" name="amount" type="text" value={this.state.amount} onChange={this.handleChangeAmount} />
             <br></br>
-            <input id="measure" name="measure" type="text" value={this.state.measure} onChange={this.handleChangeMeasure} />
+            <h3>Measurement Type:</h3>
             <br></br>
-            <input type='submit' value="Next Ingredient"/>
+            <select id="types" name="types" value={this.state.value} onChange={this.handleChangeType} >
+            <option value="oz">oz</option>
+            <option value="tsp">tsp</option>
+            <option value="floz">floz</option>
+            <option value="L">L</option>
+            <option value="ml">ml</option>
+            <option value="lb">lb</option>
+            <option value="g">g</option>
+            <option value="cup">cup</option>
+            <option value="tbs">tbs</option>
+            </select>
+            <br></br>
+            <br></br>
+            <input type='submit' value="Submit Ingredient"/>
           </form>
-          <a href='/'>Done</a>
             </div>
 
         )
